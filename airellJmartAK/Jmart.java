@@ -1,35 +1,25 @@
 package airellJmartAK;
 
-
-/**
- * Write a description of class Jmart here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class Jmart
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    public static void main(String[] args) {
 
-    /**
-     * Constructor for objects of class Jmart
-     */
-    public Jmart()
-    {
-        // initialise instance variables
-        x = 0;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    
+    public static int getPromo (){
+        return 0;
+    }
+    
+    public static String getCustomer (){
+        return "OOP";
+    }
+    
+    public static float getDiscountPercentage (int sebelum, int sesudah){
+        if (sebelum < sesudah){
+            return 0.0f;
+        }
+        else {
+            return ((sebelum - sesudah) / sebelum) * 100;
+        }
     }
 }
