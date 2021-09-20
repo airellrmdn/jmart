@@ -37,7 +37,6 @@ public class PriceTag
         else if(discount == 100.0){
             return 0.0;
         }
-        double cut = price * discount / 100.0;
-        return price - cut;
+        return price - (price * discount / 100.0);
     }
 }
