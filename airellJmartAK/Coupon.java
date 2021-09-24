@@ -9,7 +9,7 @@ public class Coupon
     public double minimum;
     private boolean used;
     
-    public static enum Type{
+    public enum Type{
         DISCOUNT, REBATE
     }
     
@@ -23,7 +23,7 @@ public class Coupon
     }
     
     public boolean isUsed(){
-        return this.used;
+        return used;
     }
     
     public boolean canApply(PriceTag priceTag){
@@ -36,7 +36,15 @@ public class Coupon
     }
     
     public double apply(PriceTag priceTag){
-        this.used = true;
+        used = true;
+        switch (type){
+            case DISCOUNT: 
+                cut = priceTag.discount;
+                break;
+            case REBATE:
+                cut = priceTag.price * priceTag.discount / 100.0;
+                break;
+        }
         return priceTag.getAdjustedPrice() - cut;
     }
 }

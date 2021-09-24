@@ -2,9 +2,9 @@ package airellJmartAK;
 
 public class PriceTag
 {
-    public static double COMMISSION_MULTIPLIER = 0.05;
-    public static double BOTTOM_PRICE = 20000.0;
-    public static double BOTTOM_FEE = 1000.0;
+    public static final double COMMISSION_MULTIPLIER = 0.05;
+    public static final double BOTTOM_PRICE = 20000.0;
+    public static final double BOTTOM_FEE = 1000.0;
     
     public double discount;
     public double price;
@@ -31,12 +31,11 @@ public class PriceTag
     }
     
     private double getDiscountedPrice(){
-        if(discount > 100.0){
-            return 100.0;
-        }
-        else if(discount == 100.0){
+        if(discount >= 100.0){
             return 0.0;
         }
-        return price - (price * discount / 100.0);
+        else{
+            return price - (price * discount / 100.0);
+        }
     }
 }
