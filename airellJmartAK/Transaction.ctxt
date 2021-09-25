@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Transaction
+comment1.params=id\ buyerId\ storeId
+comment1.target=Transaction(int,\ int,\ int)
+numComments=2
