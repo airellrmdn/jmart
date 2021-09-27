@@ -1,28 +1,13 @@
 package airellJmartAK;
 
-public class Complaint extends Transaction implements FileParser
+public class Complaint extends Recognizable implements FileParser
 {
-    public int paymentId;
+    public String date = "Senin";
     public String desc;
    
-//  public Complaint(int id, Payment payment, String desc){
-//       super(id);
-//       paymentId = payment.id;
-//       this.desc = desc;
-//  }
-   
-    public Complaint(int id, int buyerId, int storeId, int paymentId, String desc){
-         super(id, buyerId, storeId);
-         this.paymentId = paymentId;
+    public Complaint(int id, String desc){
+         super(id);
          this.desc = desc;
-    }
-   
-    public boolean validate(){
-        return false;
-    }
-    
-    public Transaction perform(){
-        return null;
     }
     
     @Override
