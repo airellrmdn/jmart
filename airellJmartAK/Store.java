@@ -5,11 +5,6 @@ public class Store extends Recognizable implements FileParser
     public String name;
     public String address;
     public String phoneNumber;
-    
-    @Override
-    public boolean read (String content){
-        return false;
-    }
    
     public Store(int accountId, String name, String address, String phoneNumber){
         super(accountId);
@@ -23,5 +18,10 @@ public class Store extends Recognizable implements FileParser
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+    
+    @Override
+    public boolean read (String content){
+        return false;
     }
 }

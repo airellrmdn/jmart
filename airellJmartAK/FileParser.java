@@ -4,7 +4,7 @@ public interface FileParser
 {
     public boolean read (String content);
     
-    public default Object write(){
+    default Object write(){
         return null;
     }
     

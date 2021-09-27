@@ -1,6 +1,6 @@
 package airellJmartAK;
 
-public class Coupon
+public class Coupon extends Recognizable implements FileParser
 {
     public String name;
     public int code;
@@ -13,13 +13,14 @@ public class Coupon
         DISCOUNT, REBATE
     }
     
-    public Coupon(String name, int code, Type type, double cut, double minimum){
+    public Coupon(int id, String name, int code, Type type, double cut, double minimum){
+        super(id);
         this.name = name;
         this.code = code;
         this.type = type;
         this.cut = cut;
         this.minimum = minimum;
-        this.used = false;
+        used = false;
     }
     
     public boolean isUsed(){
@@ -46,5 +47,10 @@ public class Coupon
                 break;
         }
         return priceTag.getAdjustedPrice() - cut;
+    }
+    
+    @Override
+    public boolean read (String content){
+        return false;
     }
 }
