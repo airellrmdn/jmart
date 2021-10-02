@@ -35,6 +35,15 @@ public class Store extends Recognizable implements FileParser
     }
     
     public boolean validate(){
-        return false;
+        Pattern pattern = Pattern.compile(REGEX_PHONE);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        boolean matchFound = matcher.find();
+        String res = matchFound ? "FOUND" : "NOT FOUND";
+        if(res == "FOUND"){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
