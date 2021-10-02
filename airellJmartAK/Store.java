@@ -1,7 +1,12 @@
 package airellJmartAK;
+import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Store extends Recognizable implements FileParser
 {
+    public static final String REGEX_PHONE = "^(\\d[9,12])$";
+   // public static final String REGEX_NAME = 
     public String name;
     public String address;
     public String phoneNumber;
@@ -27,5 +32,9 @@ public class Store extends Recognizable implements FileParser
     
     public String toString(){
         return "name: " + name + "\n" + "address: " + address + "\n" + "phoneNumber: " + phoneNumber;
+    }
+    
+    public boolean validate(){
+        return false;
     }
 }

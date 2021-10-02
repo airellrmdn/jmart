@@ -1,8 +1,10 @@
 package airellJmartAK;
+import java.util.Date;
 
 public abstract class Invoice extends Recognizable implements FileParser
 {
-    public String date = "Senin";
+   // public String date;
+    public Date date = new Date();
     public int buyerId;
     public int productId;
     public int complaintId;
@@ -27,6 +29,7 @@ public abstract class Invoice extends Recognizable implements FileParser
         super(id);
         this.buyerId = buyerId;
         this.productId = productId;
+        this.date = date;
     }
     
     @Override
