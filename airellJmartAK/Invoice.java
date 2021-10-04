@@ -1,15 +1,16 @@
 package airellJmartAK;
 import java.util.Date;
+import java.util.ArrayList;
 
 public abstract class Invoice extends Recognizable implements FileParser
 {
-   // public String date;
-    public Date date = new Date();
+    public Date date;
     public int buyerId;
     public int productId;
     public int complaintId;
     public Rating rating = Rating.NONE;
     public Status status = Status.WAITING_CONFIRMATION;
+    public ArrayList<Record> history = new ArrayList<Record>();
     
     public enum Rating{
         NONE, BAD, NEUTRAL, GOOD
@@ -29,7 +30,7 @@ public abstract class Invoice extends Recognizable implements FileParser
         super(id);
         this.buyerId = buyerId;
         this.productId = productId;
-        this.date = date;
+        this.date = new Date();
     }
     
     @Override
@@ -38,4 +39,11 @@ public abstract class Invoice extends Recognizable implements FileParser
     }
     
     public abstract double getTotalPay();
+    
+    public class Record
+    {
+        public Status status;
+        public Date date;
+        public String message;
+    }
 }
