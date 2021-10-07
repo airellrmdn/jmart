@@ -3,14 +3,8 @@ package airellJmartAK;
 public class Jmart
 {
     public static void main(String[] args){
-        
-    }
-    
-    public static Product createProduct(){
-        return null;
-    }
-    
-    public static Coupon createCoupon(){
-        return null;
+    	System.out.println("Hello from Eclipse!");
+      //  Complaint comp = new Complaint(22, "lamaa");
+      //  System.out.println(comp.toString());
     }
 }
