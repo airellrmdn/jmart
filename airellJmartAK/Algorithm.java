@@ -58,6 +58,30 @@ public class Algorithm {
 		return false;
 	}
 	
+	public static <T> T find(T[] array, T value) {
+		return null;
+	}
+	
+	public static <T> T find(Iterable<T> iterable, T value) {
+		return null;
+	}
+	
+	public static <T> T find(Iterator<T> iterator, T value) {
+		return null;
+	}
+	
+	public static <T> T find(T[] array, Predicate<T> pred) {
+		return null;
+	}
+	
+	public static <T> T find(Iterable<T> iterable, Predicate<T> pred) {
+		return null;
+	}
+	
+	public static <T> T find(Iterator<T> iterator, Predicate<T> pred) {
+		return null;
+	}
+	
 	public static <T> T max(T first, T second) {
 		return null;
 	}
