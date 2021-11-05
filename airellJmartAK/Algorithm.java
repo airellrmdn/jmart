@@ -1,4 +1,5 @@
 package airellJmartAK;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -55,19 +56,47 @@ public class Algorithm {
 	} 
 	
 	public static <T> int count (Iterator<T> iterator, T value) {
-		return 0;
+		int counter = 0;
+        while (iterator.hasNext()){
+            counter++;
+        }
+        return counter;
 	}
 	
 	public static <T> int count(T[] array, Predicate<T> pred) {
-		return 0;
+		int counter = 0;
+        if (pred.equals(false)) {
+            return 0;
+        }else{
+            for (T a:array){
+                counter++;
+            }
+        }
+        return counter;
 	}
 	
 	public static <T> int count(Iterable<T> iterable, Predicate<T> pred) {
-		return 0;
+		 int counter = 0;
+	        if (pred.equals(false)) {
+	            return 0;
+	        }else{
+	            for (T a:iterable){
+	                counter++;
+	            }
+	        }
+	        return counter;
 	}
 	
 	public static <T> int count(Iterator<T> iterator, Predicate<T> pred) {
-		return 0;
+		 int counter = 0;
+	        if (pred.equals(false)) {
+	            return 0;
+	        }else{
+	            while (iterator.hasNext()){
+	                counter++;
+	            }
+	        }
+	        return counter;
 	}
 	
 	public static <T> boolean exists(T[] array, T value) {
