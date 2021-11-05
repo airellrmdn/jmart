@@ -153,7 +153,8 @@ public class Algorithm {
 	}
 	
 	public static <T> T max(T first, T second, Comparator<?super T> comparator) {
-		return null;
+		int res = ((Comparable<T>)first).compareTo(second);
+		return res == -1 ? second : first;
 	}
 	
 	public static <T> T max(T[] array, Comparator<?super T> comparator) {
