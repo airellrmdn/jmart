@@ -4,8 +4,8 @@ public class Recognizable implements Comparable <Recognizable>
 {
     public final int id;
     
-    protected Recognizable(int id){
-        this.id = id;
+    protected Recognizable(){
+        id = 1;
     }
     
     public static int setClosingId(Class<Recognizable>Class, int id) {

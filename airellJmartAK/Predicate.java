@@ -1,5 +1,5 @@
 package airellJmartAK;
 
 public interface Predicate<T> {
-	public boolean predicate(T arg);
+	public abstract boolean predicate(T arg);
 }

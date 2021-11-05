@@ -1,20 +1,19 @@
 package airellJmartAK;
 
-public class Coupon extends Recognizable implements FileParser
+public class Coupon extends Recognizable
 {
-    public String name;
-    public int code;
-    public double cut;
-    public Type type;
-    public double minimum;
+    public final String name;
+    public final int code;
+    public final double cut;
+    public final Type type;
+    public final double minimum;
     private boolean used;
     
-    public enum Type{
+    public static enum Type{
         DISCOUNT, REBATE
     }
     
-    public Coupon(int id, String name, int code, Type type, double cut, double minimum){
-        super(id);
+    public Coupon(String name, int code, Type type, double cut, double minimum){
         this.name = name;
         this.code = code;
         this.type = type;
@@ -27,8 +26,8 @@ public class Coupon extends Recognizable implements FileParser
         return used;
     }
     
-    public boolean canApply(PriceTag priceTag){
-        if(priceTag.getAdjustedPrice() >= minimum && used == false){
+    public boolean canApply(Treasury treasury){
+        if(treasury.getAdjustedPrice(minimum, cut) >= minimum && used == false){
             return true;
         }
         else{
@@ -36,21 +35,13 @@ public class Coupon extends Recognizable implements FileParser
         }
     }
     
-    public double apply(PriceTag priceTag){
+    public double apply(Treasury treasury){
         used = true;
         switch (type){
-            case DISCOUNT: 
-                cut = priceTag.discount;
-                break;
-            case REBATE:
-                cut = priceTag.price * priceTag.discount / 100.0;
-                break;
+            case REBATE: 
+            	return (treasury.getAdjustedPrice(minimum, cut) - cut);
+            default:
+                return (treasury.getAdjustedPrice(minimum, cut) * (1 - (cut / 100.0)));
         }
-        return priceTag.getAdjustedPrice() - cut;
-    }
-    
-    @Override
-    public boolean read (String content){
-        return false;
     }
 }
