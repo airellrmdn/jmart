@@ -31,7 +31,8 @@ public class Algorithm {
 	}
 	
 	public static <T> List<T> collect(Iterable<T> iterable, Predicate<T> pred){
-		return null;
+		final Iterable<T>iter = (Iterable<T>)iterable.iterator();
+		return collect(iter, pred);
 	}
 	
 	public static <T> List<T> collect(Iterator<T> iterator, Predicate<T> pred){
@@ -100,27 +101,57 @@ public class Algorithm {
 	}
 	
 	public static <T> boolean exists(T[] array, T value) {
-		return false;
+		for (T a : array){
+            if(a.equals(value)){
+                return true;
+            }
+        }
+        return false;
 	}
 	
 	public static <T> boolean exists(Iterable<T> iterable, T value) {
-		return false;
+		for (T a : iterable){
+            if(a.equals(value)){
+                return true;
+            }
+        }
+        return false;
 	}
 	
 	public static <T> boolean exists(Iterator<T> iterator, T value) {
-		return false;
+		while (iterator.hasNext()){
+            if (iterator.next().equals(value)){
+                return true;
+            }
+        }
+        return false;
 	}
 	
 	public static <T> boolean exists(T[] array, Predicate<T> pred) {
-		return false;
+		for (T a : array){
+            if(a.equals(pred)){
+                return true;
+            }
+        }
+        return false;
 	}
 	
 	public static <T> boolean exists(Iterable<T> iterable, Predicate<T> pred) {
-		return false;
+		for (T a : iterable){
+            if(a.equals(pred)){
+                return true;
+            }
+        }
+        return false;
 	}
 	
 	public static <T> boolean exists(Iterator<T> iterator, Predicate<T> pred) {
-		return false;
+		while (iterator.hasNext()){
+            if (iterator.next().equals(pred)){
+                return true;
+            }
+        }
+        return false;
 	}
 	
 	public static <T> T find(T[] array, T value) {
