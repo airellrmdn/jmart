@@ -1,6 +1,6 @@
 package airellJmartAK;
 
-public class Coupon extends Recognizable
+public class Coupon extends Serializable
 {
     public final String name;
     public final int code;
@@ -26,8 +26,8 @@ public class Coupon extends Recognizable
         return used;
     }
     
-    public boolean canApply(Treasury treasury){
-        if(treasury.getAdjustedPrice(minimum, cut) >= minimum && used == false){
+    public boolean canApply(double price, double discount){
+        if(Treasury.getAdjustedPrice(minimum, cut) >= minimum && used == false){
             return true;
         }
         else{
@@ -35,13 +35,13 @@ public class Coupon extends Recognizable
         }
     }
     
-    public double apply(Treasury treasury){
+    public double apply(double price, double discount){
         used = true;
         switch (type){
             case REBATE: 
-            	return (treasury.getAdjustedPrice(minimum, cut) - cut);
+            	return (Treasury.getAdjustedPrice(minimum, cut) - cut);
             default:
-                return (treasury.getAdjustedPrice(minimum, cut) * (1 - (cut / 100.0)));
+                return (Treasury.getAdjustedPrice(minimum, cut) * (1 - (cut / 100.0)));
         }
     }
 }
