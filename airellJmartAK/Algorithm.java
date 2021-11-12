@@ -31,7 +31,7 @@ public class Algorithm {
 	}
 	
 	public static <T> List<T> collect(Iterable<T> iterable, Predicate<T> pred){
-		final Iterable<T>iter = (Iterable<T>)iterable.iterator();
+		final Iterable<T> iter = (Iterable<T>)iterable.iterator();
 		return collect(iter, pred);
 	}
 	
@@ -45,15 +45,13 @@ public class Algorithm {
 	}
 	
 	public static <T> int count(T[] array, T value) {
-		return array.length;
+		final Iterator<T> it = Arrays.stream(array).iterator();
+		return count(it, value);
 	} 
 	
 	public static <T> int count(Iterable<T> iterable, T value) {
-		int counter = 0;
-		for(Object i : iterable) {
-			counter++;
-		}
-		return counter;
+		final Iterator <T> it = iterable.iterator();
+		return count(it, value);
 	} 
 	
 	public static <T> int count (Iterator<T> iterator, T value) {
@@ -65,15 +63,8 @@ public class Algorithm {
 	}
 	
 	public static <T> int count(T[] array, Predicate<T> pred) {
-		int counter = 0;
-        if (pred.equals(false)) {
-            return 0;
-        }else{
-            for (T a:array){
-                counter++;
-            }
-        }
-        return counter;
+		final Iterator<T> it = Arrays.stream(array).iterator();
+		return count(it, pred);
 	}
 	
 	public static <T> int count(Iterable<T> iterable, Predicate<T> pred) {
@@ -155,27 +146,32 @@ public class Algorithm {
 	}
 	
 	public static <T> T find(T[] array, T value) {
-		return null;
+		final Iterator<T> var = Arrays.stream(array).iterator();
+		return find(var, value);
 	}
 	
 	public static <T> T find(Iterable<T> iterable, T value) {
-		return null;
+		final Iterator <T> var = iterable.iterator();
+		return find(var, value);
 	}
 	
 	public static <T> T find(Iterator<T> iterator, T value) {
-		return null;
+		final Predicate <T> var = value::equals;
+		return find(iterator, var);
 	}
 	
 	public static <T> T find(T[] array, Predicate<T> pred) {
-		return null;
+		final Iterator<T> var = Arrays.stream(array).iterator();
+		return find(var, pred);
 	}
 	
 	public static <T> T find(Iterable<T> iterable, Predicate<T> pred) {
-		return null;
+		final Iterator <T> var = iterable.iterator();
+		return find(var, pred);
 	}
 	
 	public static <T> T find(Iterator<T> iterator, Predicate<T> pred) {
-		return null;
+		return find(iterator, pred);
 	}
 	
 	public static <T> T max(T first, T second) {

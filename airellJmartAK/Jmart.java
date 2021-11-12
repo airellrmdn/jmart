@@ -13,30 +13,17 @@ import com.google.gson.reflect.TypeToken;
 public class Jmart
 {
 	public static List<Product> filterByAccountId(List<Product>list, int accountId, int page, int pageSize){
-		List<Product> result = new ArrayList<Product>();
-		for(Product product : list) {
-			if (product.accountId == accountId) {
-				result.add(product);
-			}
-		}
-		return paginate(list, page, pageSize, null);
+		Predicate<Product> predicate = product -> product.accountId == accountId;
+		return paginate(list, page, pageSize, predicate);
 	}
 	
-	public static List<Product> filterByName(List<Product>list, int accountId, int page, int pageSize){
-		//Predicate<Product> predicate = temp -> (temp.name.toLowerCase().contains(search.toLowerCase()));
-      //  return paginate(list, page, pageSize, predicate);
-		return null;
+	public static List<Product> filterByName(List<Product>list, String search, int page, int pageSize){
+		Predicate<Product> predicate = product -> (product.name.toLowerCase().contains(search.toLowerCase()));
+        return paginate(list, page, pageSize, predicate);
 	}
 	
 	private static List<Product> paginate(List<Product> list, int page, int pageSize, Predicate<Product> pred){
-		List<Product> result = new ArrayList<Product>();
-		int paging = page > 1 ? (page - 1) * pageSize : 0;
-		for (int i = 0; i < pageSize && i < list.size() - paging; i++) {
-			if (pred.predicate(list.get(i))) {
-				result.add(list.get(paging + i));
-			}
-		}
-		return result;
+		return list.stream().filter(i -> pred.predicate(i)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
 	}
 	
 	public static List<Product> filterByCategory(List<Product>list, ProductCategory category){
@@ -67,7 +54,18 @@ public class Jmart
 	}
 	
     public static void main(String[] args){
-    	
+    	try{
+            List<Product> list = read("C:\\Users\\Rivaldi\\Desktop\\Semester 3\\OOP\\Praktikum Jmart\\jmart\\randomProductList.json");
+            List<Product> filteredByName = filterByName(list, "gtx", 1, 5);
+            filteredByName.forEach(product -> System.out.println(product.name));
+            List<Product> filteredById = filterByAccountId(list, 1, 0, 5);
+            filteredById.forEach(product -> System.out.println(product.name));
+
+        }
+        catch (Throwable t)
+        {
+            t.printStackTrace();
+        }
     }
     
    public static List<Product> read(String filepath) throws FileNotFoundException{
