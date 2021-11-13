@@ -55,12 +55,14 @@ public class Jmart
 	
     public static void main(String[] args){
     	try{
-            List<Product> list = read("C:\\Users\\Rivaldi\\Desktop\\Semester 3\\OOP\\Praktikum Jmart\\jmart\\randomProductList.json");
-            List<Product> filteredByName = filterByName(list, "gtx", 1, 5);
-            filteredByName.forEach(product -> System.out.println(product.name));
-            List<Product> filteredById = filterByAccountId(list, 1, 0, 5);
-            filteredById.forEach(product -> System.out.println(product.name));
-
+    		String filepath = "C:\\Users\\Rivaldi\\Desktop\\Semester 3\\OOP\\Praktikum Jmart\\jmart\\Account.json";
+    		
+            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.add(new Account("name", "email", "password", 100));
+            tableAccount.writeJson();
+            
+            tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.forEach(account -> System.out.println(account.toString()));
         }
         catch (Throwable t)
         {
