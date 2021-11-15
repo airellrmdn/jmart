@@ -12,7 +12,12 @@ import com.google.gson.reflect.TypeToken;
 
 public class Jmart
 {
-	public static List<Product> filterByAccountId(List<Product>list, int accountId, int page, int pageSize){
+	public static long DELIVERED_LIMIT_MS;
+	public static long ON_DELIVERY_LIMIT_MS;
+	public static long ON_PROGRESS_LIMIT_MS;
+	public static long WAITING_CONF_LIMIT_MS;
+	
+/**	public static List<Product> filterByAccountId(List<Product>list, int accountId, int page, int pageSize){
 		Predicate<Product> predicate = product -> product.accountId == accountId;
 		return paginate(list, page, pageSize, predicate);
 	}
@@ -34,7 +39,7 @@ public class Jmart
 			}
 		}
 		return result;
-	}
+	} 
 	
 	public static List<Product> filterByPrice(List<Product> list, double minPrice, double maxPrice){
 		List<Product> result = new ArrayList<Product>();
@@ -51,10 +56,10 @@ public class Jmart
             result.add(product);
         }
         return result;
-	}
+	}  **/
 	
     public static void main(String[] args){
-    	try{
+  /**  	try{
     		String filepath = "C:\\Users\\Rivaldi\\Desktop\\Semester 3\\OOP\\Praktikum Jmart\\jmart\\Account.json";
     		
             JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
@@ -67,15 +72,41 @@ public class Jmart
         catch (Throwable t)
         {
             t.printStackTrace();
+        }  **/
+    	try {
+            JsonTable<Payment> table = new JsonTable<>(Payment.class,"C:\\Users\\Rivaldi\\Desktop\\Semester 3\\OOP\\Praktikum Jmart\\jmart\\randomPaymentList.json");
+            ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);
+            paymentPool.start();
+            table.forEach(payment -> paymentPool.add(payment));
+            while (paymentPool.size() != 0);
+            paymentPool.exit();
+            while (paymentPool.isAlive());
+            System.out.println("Thread exited successfully");
+            Gson gson = new Gson();
+            table.forEach(payment -> {
+                String history = gson.toJson(payment.history);
+                System.out.println(history);
+            });
+        }
+        catch (Throwable t) {
+            t.printStackTrace();
         }
     }
     
-   public static List<Product> read(String filepath) throws FileNotFoundException{
+    public static boolean paymentTimekeeper(Payment payment) {
+    	long startTime = System.currentTimeMillis();
+    	if(System.currentTimeMillis() - startTime > WAITING_CONF_LIMIT_MS) {
+    		payment.history.add(new Payment.Record(Invoice.Status.FAILED, "ERROR"));
+    	}
+    	return false;
+    }
+    
+ /**  public static List<Product> read(String filepath) throws FileNotFoundException{
 		Gson gson = new Gson();
 		Type userListType = new TypeToken<ArrayList<Product>>() {
 		}.getType();
 		BufferedReader br = new BufferedReader(new FileReader(filepath));
 		List<Product> returnList = gson.fromJson(br, userListType);
 		return returnList;
-    }
+    } **/
 }

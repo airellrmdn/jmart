@@ -29,3 +29,6 @@
 /Serializable.class
 /Jmart$1.class
 /JsonTable.class
+/Payment$Record.class
+/PhoneTopUp.class
+/ObjectPoolThread.class

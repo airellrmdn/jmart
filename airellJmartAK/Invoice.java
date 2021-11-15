@@ -1,17 +1,14 @@
 package airellJmartAK;
 
-import java.util.Date;
-import java.util.ArrayList;
+import java.util.Date; 
 
 public abstract class Invoice extends Serializable
 {
     public final Date date;
     public int buyerId;
     public int productId;
-    public int complaintId;
+    public int complaintId = -1;
     public Rating rating;
-    public Status status;
-    public ArrayList<Record> history = new ArrayList<Record>();
     
     public static enum Rating{
         NONE, BAD, NEUTRAL, GOOD
@@ -30,12 +27,11 @@ public abstract class Invoice extends Serializable
     protected Invoice(int buyerId, int productId){
         this.buyerId = buyerId;
         this.productId = productId;
-        this.date = new Date();
+        this.date = java.util.Calendar.getInstance().getTime();
         this.rating = Rating.NONE;
-        this.status = Status.WAITING_CONFIRMATION; 
     }
     
-    public abstract double getTotalPay();
+    public abstract double getTotalPay(Product product);
     
     public class Record
     {
