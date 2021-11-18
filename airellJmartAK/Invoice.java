@@ -32,11 +32,4 @@ public abstract class Invoice extends Serializable
     }
     
     public abstract double getTotalPay(Product product);
-    
-    public class Record
-    {
-        public Status status;
-        public Date date;
-        public String message;
-    }
 }

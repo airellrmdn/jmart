@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Algorithm {
 	private Algorithm() {
@@ -257,5 +258,13 @@ public class Algorithm {
 	public static <T> T min(Iterator<T> iterator, Comparator<?super T> comparator) {
 		return null;
 	}
+	
+	private static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
+		return Arrays.stream(array).filter(i -> pred.predicate(i)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
+	}
+	
+/**	private static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
+		return Arrays.stream().filter(i -> pred.predicate(i)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
+	}  **/
 	
 }

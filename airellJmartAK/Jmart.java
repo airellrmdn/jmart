@@ -95,10 +95,20 @@ public class Jmart
     
     public static boolean paymentTimekeeper(Payment payment) {
     	long startTime = System.currentTimeMillis();
-    	if(System.currentTimeMillis() - startTime > WAITING_CONF_LIMIT_MS) {
-    		payment.history.add(new Payment.Record(Invoice.Status.FAILED, "ERROR"));
-    	}
-    	return false;
+        if (System.currentTimeMillis() - startTime > WAITING_CONF_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FAILED, "FAILED"));
+        }
+        else if (System.currentTimeMillis() - startTime > ON_PROGRESS_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FAILED, "FAILED"));
+        }
+        else if (System.currentTimeMillis() - startTime > ON_DELIVERY_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.ON_DELIVERY, "ON_DELIVERY"));
+        }
+        else if (System.currentTimeMillis() - startTime > DELIVERED_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FINISHED, "DELIVERED"));
+            return true;
+        }
+        return false;
     }
     
  /**  public static List<Product> read(String filepath) throws FileNotFoundException{
