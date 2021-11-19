@@ -4,12 +4,12 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.Vector;
-//import com.google.gson.*;
-//import com.google.gson.stream.JsonReader;
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 
 public class JsonTable<T> extends Vector<T>{
 	public final String filepath;
-//	private static final Gson gson = new Gson();
+	private static final Gson gson = new Gson();
 	
 	public JsonTable(Class<T> clazz, String filepath) throws IOException{
 		this.filepath = filepath;
@@ -26,9 +26,8 @@ public class JsonTable<T> extends Vector<T>{
 	}
 	
 	public static <T> T readJson(Class<T>clazz, String filepath) throws FileNotFoundException{
-		return null;
-//		final JsonReader read = new JsonReader(new FileReader(filepath));
-//		return gson.fromJson(read, clazz);
+		final JsonReader read = new JsonReader(new FileReader(filepath));
+		return gson.fromJson(read, clazz);
 	}
 	
 	public void writeJson() throws IOException{
@@ -37,7 +36,7 @@ public class JsonTable<T> extends Vector<T>{
 	
 	public void writeJson(Object object, String filepath) throws IOException{
 		final FileWriter fwrite = new FileWriter(filepath);
-	//	fwrite.write(gson.toJson(object));
+		fwrite.write(gson.toJson(object));
 		fwrite.close();
 	}
 
