@@ -1,5 +1,7 @@
 package com.airellJmartAK;
 
+import com.airellJmartAK.dbjson.Serializable;
+
 public class Coupon extends Serializable
 {
     public final String name;

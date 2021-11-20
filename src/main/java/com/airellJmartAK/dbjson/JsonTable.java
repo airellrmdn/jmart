@@ -1,6 +1,6 @@
-package com.airellJmartAK;
+package com.airellJmartAK.dbjson;
 
-import java.io.*; 
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.Vector;
@@ -11,17 +11,17 @@ public class JsonTable<T> extends Vector<T>{
 	public final String filepath;
 	private static final Gson gson = new Gson();
 	
+	@SuppressWarnings("unchecked")
 	public JsonTable(Class<T> clazz, String filepath) throws IOException{
 		this.filepath = filepath;
 		try {
-			@SuppressWarnings("unchecked")
 			Class<T[]> array = (Class<T[]>) Array.newInstance(clazz, 0).getClass();
 			
-			T[] result = JsonTable.readJson(array, filepath);
-			Collections.addAll(this, result);
+			T[] result = readJson(array, filepath);
+			if(result != null)
+				Collections.addAll(this, result);
 		}
 		catch(FileNotFoundException e) {
-			File file = new File(filepath);
 		}
 	}
 	
@@ -35,6 +35,13 @@ public class JsonTable<T> extends Vector<T>{
 	}
 	
 	public void writeJson(Object object, String filepath) throws IOException{
+		File file = new File(filepath);
+		if(!file.exists()) {
+			File parent = file.getParentFile();
+			if(parent != null)
+				parent.mkdirs();
+			file.createNewFile();
+		}
 		final FileWriter fwrite = new FileWriter(filepath);
 		fwrite.write(gson.toJson(object));
 		fwrite.close();

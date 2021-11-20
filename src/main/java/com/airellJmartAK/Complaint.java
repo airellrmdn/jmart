@@ -1,6 +1,9 @@
 package com.airellJmartAK;
 
 import java.util.Date;
+
+import com.airellJmartAK.dbjson.Serializable;
+
 import java.text.SimpleDateFormat;
 
 public class Complaint extends Serializable

@@ -3,6 +3,8 @@ package com.airellJmartAK;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.airellJmartAK.dbjson.Serializable;
+
 public class Account extends Serializable
 {
     public static final String REGEX_EMAIL = "^\\w+([.&`~-]?\\w+)*@\\w+([.-]?\\w+)+$";

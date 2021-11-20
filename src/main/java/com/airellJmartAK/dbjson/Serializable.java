@@ -1,11 +1,11 @@
-package com.airellJmartAK;
+package com.airellJmartAK.dbjson;
 
 import java.util.HashMap;
 
 public class Serializable implements Comparable <Serializable>
 {
     public final int id;
-    private static HashMap<Class<?>, Integer> mapCounter = new HashMap<Class<?>, Integer>();
+    private static HashMap<Class<?>, Integer> mapCounter = new HashMap<>();
     
     protected Serializable(){
         Integer counter = mapCounter.get(getClass());
@@ -32,11 +32,6 @@ public class Serializable implements Comparable <Serializable>
     
     @Override
     public int compareTo(Serializable other) {
-    	if(id == other.id) {
-    		return 1;
-    	}
-    	else {
-    		return 0;
-    	}
+    	return Integer.compare(this.id, other.id);
     }
 }

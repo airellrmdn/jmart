@@ -1,5 +1,7 @@
 package com.airellJmartAK;
 
+import com.airellJmartAK.dbjson.Serializable;
+
 public class Product extends Serializable
 {
     public int accountId;

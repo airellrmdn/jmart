@@ -1,6 +1,8 @@
 package com.airellJmartAK;
 
-import java.util.Date; 
+import java.util.Date;
+
+import com.airellJmartAK.dbjson.Serializable; 
 
 public abstract class Invoice extends Serializable
 {
