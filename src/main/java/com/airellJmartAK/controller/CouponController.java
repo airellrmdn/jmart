@@ -51,7 +51,7 @@ public class CouponController implements BasicGetController<Coupon> {
 		return false;
 	}
 	
-	@GetMapping("/{id}/canApply")
+	@GetMapping("/getAvailable")
 	@ResponseBody List<Coupon> getAvailable 
 	(
 			@RequestParam int page,
