@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.airellJmartAK.Algorithm;
@@ -25,7 +26,7 @@ public class CouponController implements BasicGetController<Coupon> {
 	}
 	
 	@GetMapping("/{id}/isUsed")
-	boolean isUsed (@RequestParam int id) {
+	@ResponseBody boolean isUsed (@RequestParam int id) {
 		for(Coupon data : getJsonTable()) {
 			if(data.id == id) {
 				return data.isUsed();
@@ -35,7 +36,7 @@ public class CouponController implements BasicGetController<Coupon> {
 	}
 	
 	@GetMapping("/{id}/canApply")
-	boolean canApply 
+	@ResponseBody boolean canApply 
 	(
 			@RequestParam int id,
 			@RequestParam double price,
@@ -51,7 +52,7 @@ public class CouponController implements BasicGetController<Coupon> {
 	}
 	
 	@GetMapping("/{id}/canApply")
-	List<Coupon> getAvailable 
+	@ResponseBody List<Coupon> getAvailable 
 	(
 			@RequestParam int page,
 			@RequestParam int pageSize

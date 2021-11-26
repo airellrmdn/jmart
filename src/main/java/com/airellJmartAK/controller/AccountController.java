@@ -53,7 +53,7 @@ public class AccountController implements BasicGetController<Account>
     }
 	
 	@PostMapping("/register")
-	Account register
+	@ResponseBody Account register
 	(
 		@RequestParam String name,
 		@RequestParam String email,
@@ -85,7 +85,7 @@ public class AccountController implements BasicGetController<Account>
 	}
 	
 	@PostMapping("/{id}/registerStore")
-    Store registerStore
+	@ResponseBody Store registerStore
     (
         @RequestParam int id,
         @RequestParam String name,
@@ -103,7 +103,7 @@ public class AccountController implements BasicGetController<Account>
     }
 	
 	@PostMapping("/{id}/topUp")
-	boolean topUp
+	@ResponseBody boolean topUp
 	(
 			@RequestParam int id,
             @RequestParam double balance

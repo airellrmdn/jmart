@@ -3,6 +3,7 @@ package com.airellJmartAK.controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.airellJmartAK.*;
@@ -22,7 +23,7 @@ public class ProductController implements BasicGetController<Product> {
 	}
 	
 	@PostMapping("/create")
-	Product create 
+	@ResponseBody Product create 
 	(
 			@RequestParam int accountId,
 			@RequestParam String name,
