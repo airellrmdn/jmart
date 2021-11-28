@@ -58,7 +58,6 @@ public class CouponController implements BasicGetController<Coupon> {
 			@RequestParam int pageSize
 	) 
 	{
-		//return Algorithm.paginate(couponTable, page, pageSize, pred -> pred.isUsed() == false);
-		return null;
+		return Algorithm.paginate(couponTable, page, pageSize, pred -> pred.isUsed() == false);
 	}
 }

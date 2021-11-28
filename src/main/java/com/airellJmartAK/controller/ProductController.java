@@ -1,5 +1,9 @@
 package com.airellJmartAK.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,4 +48,50 @@ public class ProductController implements BasicGetController<Product> {
         }
         return null;
 	}
+	
+	@GetMapping("/{id}/store")
+	@ResponseBody List<Product> getProductByStore 
+	(
+			@RequestParam int id,
+			@RequestParam int page,
+			@RequestParam int pageSize
+	) 
+	{
+		
+        return Algorithm.paginate(productTable, page, pageSize, pred->pred.accountId == id);
+	}
+	
+	@GetMapping("/getFiltered")
+	@ResponseBody List<Product> getProductFiltered 
+	(
+			@RequestParam int page,
+			@RequestParam int pageSize,
+			@RequestParam int accountId,
+			@RequestParam String search,
+			@RequestParam int minPrice,
+			@RequestParam int maxPrice,
+			@RequestParam ProductCategory category
+	) 
+	{
+		List<Product> tempProduct = new ArrayList<>();
+        for(Product each : productTable) {
+        	if(each.accountId == accountId) 
+        		if(each.name.contains(search)) 
+        			if(minPrice <= each.price) 
+        				if(maxPrice >= each.price) 
+        					if(each.category == category) 
+        						tempProduct.add(each);
+        }
+        return tempProduct;
+	}
+	
+	 @Override
+	 public List getPage(int page, int pageSize) {
+		 return BasicGetController.super.getPage(page, pageSize);
+	 }
+	 
+	 @Override
+	 public Product getById(int id) {
+		 return BasicGetController.super.getById(id);
+	 }
 }

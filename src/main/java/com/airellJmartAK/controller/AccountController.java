@@ -76,7 +76,7 @@ public class AccountController implements BasicGetController<Account>
         } catch (NoSuchAlgorithmException e) {
         	e.printStackTrace();
         }
-        if(!name.isBlank() || hasilEmail || hasilPassword || accountTable.stream().anyMatch(account -> account.email.equals(email))){
+        if(!name.isBlank() && hasilEmail && hasilPassword && accountTable.stream().anyMatch(account -> account.email.equals(email))){
             Account account =  new Account(name, email, password, 0);
             accountTable.add(account);
             return account;
@@ -95,7 +95,7 @@ public class AccountController implements BasicGetController<Account>
     {
         for(Account data : accountTable){
             if (data.store == null && data.id == id){
-                data.store = new Store(name,address,phoneNumber,0);
+                data.store = new Store(name, address, phoneNumber, 0);
                 return data.store;
             }
         }

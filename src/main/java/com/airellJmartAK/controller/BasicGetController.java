@@ -3,15 +3,16 @@ package com.airellJmartAK.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.airellJmartAK.dbjson.JsonTable;
 import com.airellJmartAK.dbjson.Serializable;
 
 @RestController
-public interface BasicGetController<T extends Serializable> {
+public interface BasicGetController <T extends Serializable> {
 	@GetMapping("/{id}")
-	public default T getById(int id) {
+	public default T getById(@PathVariable int id) {
 		return getJsonTable().get(id);
 	}
 	

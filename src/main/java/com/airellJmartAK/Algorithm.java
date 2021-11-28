@@ -1,5 +1,6 @@
 package com.airellJmartAK;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -147,32 +148,57 @@ public class Algorithm {
 	}
 	
 	public static <T> T find(T[] array, T value) {
-		final Iterator<T> var = Arrays.stream(array).iterator();
-		return find(var, value);
+		for(T i : array) {
+			if(i == value) {
+				return i;
+			}
+		}
+		return null;
 	}
 	
 	public static <T> T find(Iterable<T> iterable, T value) {
-		final Iterator <T> var = iterable.iterator();
-		return find(var, value);
+		for(T i : iterable) {
+			if(i == value) {
+				return i;
+			}
+		}
+		return null;
 	}
 	
 	public static <T> T find(Iterator<T> iterator, T value) {
-		final Predicate <T> var = value::equals;
-		return find(iterator, var);
+		while (iterator.hasNext()) {
+			if(iterator.next() == value) {
+				return iterator.next();
+			}
+		}
+		return null;
 	}
 	
 	public static <T> T find(T[] array, Predicate<T> pred) {
-		final Iterator<T> var = Arrays.stream(array).iterator();
-		return find(var, pred);
+		for(T i : array) {
+			if(pred.predicate(i)) {
+				return i;
+			}
+		}
+		return null;
 	}
 	
 	public static <T> T find(Iterable<T> iterable, Predicate<T> pred) {
-		final Iterator <T> var = iterable.iterator();
-		return find(var, pred);
+		for(T i : iterable) {
+			if(pred.predicate(i)) {
+				return i;
+			}
+		}
+		return null;
 	}
 	
 	public static <T> T find(Iterator<T> iterator, Predicate<T> pred) {
-		return find(iterator, pred);
+		while (iterator.hasNext()) {
+			if(pred.predicate(iterator.next())) {
+				return iterator.next();
+			}
+		}
+		return null;
 	}
 	
 	public static <T> T max(T first, T second) {
@@ -259,12 +285,47 @@ public class Algorithm {
 		return null;
 	}
 	
-	private static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
+	public static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
 		return Arrays.stream(array).filter(i -> pred.predicate(i)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
 	}
 	
-/**	private static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
-		return Arrays.stream().filter(i -> pred.predicate(i)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
-	}  **/
+	public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
+		List<T> list = new ArrayList<T>();
+        int counter = 0, counterPrint = 0;
+        int size = pageSize * page;
+        for (T each : iterable){
+            if (counter < size && pred.predicate(each)){
+                counter++;
+                continue;
+            }
+            if (counterPrint < pageSize && pred.predicate(each)){
+                list.add(each);
+                counterPrint++;
+            }else{
+                break;
+            }
+        }
+        return list;
+	}
 	
+	public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){
+		List<T> tempHasil = new ArrayList<T>();
+		int iteratorSize = 0;
+		while (iterator.hasNext()) {
+			iteratorSize++;
+			iterator.next();
+		}
+		int start = (iteratorSize / pageSize) * page;
+		int finish = start + pageSize;
+		int counter = 0;
+
+		while (iterator.hasNext()) {
+			if (counter >= start && counter < finish) {
+				T each = iterator.next();
+				tempHasil.add(each);
+			}
+			counter++;
+		}
+		return tempHasil;
+	}
 }
