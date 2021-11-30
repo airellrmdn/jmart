@@ -28,8 +28,13 @@ public class AccountController implements BasicGetController<Account>
 		return accountTable;
 	}
 	
-	@PostMapping("/account/login")
-    @ResponseBody Account login(String email, String password) {
+	@PostMapping("/login")
+    @ResponseBody Account login
+    (
+    		@RequestParam String email,
+    		@RequestParam String password
+    ) 
+	{
         for(Account data : accountTable){
         	try{
                 MessageDigest md = MessageDigest.getInstance("MD5");
@@ -53,7 +58,7 @@ public class AccountController implements BasicGetController<Account>
     }
 	
 	@PostMapping("/register")
-	@ResponseBody Account register
+	Account register
 	(
 		@RequestParam String name,
 		@RequestParam String email,
@@ -76,7 +81,7 @@ public class AccountController implements BasicGetController<Account>
         } catch (NoSuchAlgorithmException e) {
         	e.printStackTrace();
         }
-        if(!name.isBlank() && hasilEmail && hasilPassword && accountTable.stream().anyMatch(account -> account.email.equals(email))){
+        if(!name.isBlank() && hasilEmail && hasilPassword && !accountTable.stream().anyMatch(account -> account.email.equals(email))){
             Account account =  new Account(name, email, password, 0);
             accountTable.add(account);
             return account;
