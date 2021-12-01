@@ -35,26 +35,25 @@ public class AccountController implements BasicGetController<Account>
     		@RequestParam String password
     ) 
 	{
-        for(Account data : accountTable){
-        	try{
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                md.update(password.getBytes());
-                byte[] bytes = md.digest();
-                StringBuilder sb = new StringBuilder();
-                
-                for(int i = 0; i < bytes.length; i++){
-                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
-                }
-                
-                password = sb.toString();
-            }catch (NoSuchAlgorithmException e){
-                e.printStackTrace();
-            }
-            if(data.email == email && data.password == password){
-                return data;
-            }
-        }
-        return null;
+		for (Account data : accountTable){
+			try{
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				md.update(password.getBytes());
+				byte[] bytes = md.digest();
+				StringBuilder sb = new StringBuilder();
+
+				for(int i = 0; i < bytes.length; i++){
+					sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
+				}
+				password = sb.toString();
+			} catch (NoSuchAlgorithmException e){
+				e.printStackTrace();
+			}
+			if(data.email.equals(email) && data.password.equals(password)){
+				return data;
+			}
+		}
+		return null;
     }
 	
 	@PostMapping("/register")
