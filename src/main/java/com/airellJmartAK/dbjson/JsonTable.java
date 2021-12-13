@@ -34,7 +34,7 @@ public class JsonTable<T> extends Vector<T>{
 		writeJson(this, this.filepath);
 	}
 	
-	public void writeJson(Object object, String filepath) throws IOException{
+	public static void writeJson(Object object, String filepath) throws IOException{
 		File file = new File(filepath);
 		if(!file.exists()) {
 			File parent = file.getParentFile();

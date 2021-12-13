@@ -14,11 +14,11 @@ public class Serializable implements Comparable <Serializable>
         this.id = counter;
     }
     
-    public static <T> int setClosingId(Class<T>clazz, int id) {
+    public static <T extends Serializable> Integer setClosingId(Class<T> clazz, int id) {
     	return mapCounter.put(clazz, id);
     }
     
-    public static <T> int getClosingId(Class<T>clazz) {
+    public static <T extends Serializable> Integer getClosingId(Class<T> clazz) {
     	return mapCounter.get(clazz);
     }
 
