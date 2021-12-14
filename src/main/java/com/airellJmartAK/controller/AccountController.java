@@ -108,7 +108,7 @@ public class AccountController implements BasicGetController<Account>
     }
 	
 	@PostMapping("/{id}/topUp")
-	@ResponseBody boolean topUp
+	@ResponseBody Boolean topUp
 	(
 			@RequestParam int id,
             @RequestParam double balance
