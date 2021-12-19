@@ -12,6 +12,13 @@ import java.util.regex.Pattern;
 
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * class for account controller
+ *
+ * @author Airell Ramadhan B
+ * 
+ */
+
 @RestController
 @RequestMapping("/account")
 public class AccountController implements BasicGetController<Account>
@@ -21,14 +28,31 @@ public class AccountController implements BasicGetController<Account>
 	public static final Pattern REGEX_PATTERN_EMAIL = Pattern.compile(REGEX_EMAIL) ;
 	public static final Pattern REGEX_PATTERN_PASSWORD = Pattern.compile(REGEX_PASSWORD);
 	
+	/**
+	  * The json table of Account class. save locally in this path.
+	  */
 	@JsonAutowired(value=Account.class, filepath="C:\\Users\\Rivaldi\\Desktop\\Semester 3\\OOP\\Praktikum Jmart\\account.json")
 	public static JsonTable<Account> accountTable;
 
+	 /**
+	  * Method to get account Json Table
+	  * 
+	  * @return account Json Table
+	  */
 	@Override
 	public JsonTable<Account> getJsonTable(){
 		return accountTable;
 	}
 	
+	/**
+	  * Post request to make an account logged in after validate the account
+	  * existance and matching the email and password from the database (Json Table)
+	  * 
+	  * @param email    user's email
+	  * @param password user's password
+	  * @return The account which the email and password are matched from the
+	  *         database
+	  */
 	@PostMapping("/login")
     @ResponseBody Account login
     (
@@ -57,6 +81,16 @@ public class AccountController implements BasicGetController<Account>
 		return null;
     }
 	
+	 /**
+	  * Post request for register feature. This will check whether the parameters
+	  * match the regex and the email is not being registered yet. This will add a
+	  * new account to account Json Table.
+	  * 
+	  * @param name     account name.
+	  * @param email    account email.
+	  * @param password account password.
+	  * @return the account which qualified to register.
+	  */
 	@PostMapping("/register")
 	Account register
 	(
@@ -89,6 +123,15 @@ public class AccountController implements BasicGetController<Account>
         return null;
 	}
 	
+	 /**
+	  * Post request to register store of an account.
+	  * 
+	  * @param id          account id
+	  * @param name        store name
+	  * @param address     store address
+	  * @param phoneNumber store phone number
+	  * @return the store being registered
+	  */
 	@PostMapping("/{id}/registerStore")
 	@ResponseBody Store registerStore
     (
@@ -107,6 +150,13 @@ public class AccountController implements BasicGetController<Account>
         return null;
     }
 	
+	/**
+	  * Post request to top up account balance
+	  * 
+	  * @param id      account id
+	  * @param balance the amount balance to top up
+	  * @return return true if success, otherwise false
+	  */
 	@PostMapping("/{id}/topUp")
 	@ResponseBody Boolean topUp
 	(

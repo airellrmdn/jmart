@@ -13,13 +13,28 @@ import com.airellJmartAK.Coupon;
 import com.airellJmartAK.dbjson.JsonAutowired;
 import com.airellJmartAK.dbjson.JsonTable;
 
+/**
+ * class for coupon controller
+ *
+ * @author Airell Ramadhan B
+ * 
+ */
+
 @RestController
 @RequestMapping("/coupon")
 public class CouponController implements BasicGetController<Coupon> {
 	
+	/**
+	  * The json table of Coupon class. save locally in this path.
+	  */
 	@JsonAutowired(value=Coupon.class, filepath="C:\\Users\\Rivaldi\\Desktop\\Semester 3\\OOP\\Praktikum Jmart\\coupon.json")
 	public static JsonTable<Coupon> couponTable;
 
+	/**
+	  * Method to get account Json Table
+	  * 
+	  * @return account Json Table
+	  */
 	@Override
 	public JsonTable<Coupon> getJsonTable() {
 		return couponTable;
